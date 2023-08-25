@@ -1,55 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Таблиця</title>
-<style>
-table {
-  border-collapse: collapse;
-  width: 50%;
-  margin: auto;
-}
-
-td, th {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting Results</title>
 </head>
 <body>
-<table>
-  <thead>
-    <tr>
-      <th colspan="10">Таблиця 10x10</th>
-    </tr>
-  </thead>
-  <tbody id="table-body">
-  </tbody>
-</table>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var tableBody = document.getElementById("table-body");
-    var num = 1;
+  <div class="voting-container">
+    <div class="smiley-row" id="smileyRow">
+      <div class="smiley" onclick="vote(0)">😃</div>
+      <div class="smiley" onclick="vote(1)">😄</div>
+      <div class="smiley" onclick="vote(2)">😊</div>
+      <div class="smiley" onclick="vote(3)">😍</div>
+      <div class="smiley" onclick="vote(4)">🥰</div>
+    </div>
+    <div class="count-row" id="countRow">
+      <div class="count">0</div>
+      <div class="count">0</div>
+      <div class="count">0</div>
+      <div class="count">0</div>
+      <div class="count">0</div>
+    </div>
+  </div>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-    for (var i = 0; i < 10; i++) {
-        var row = document.createElement("tr");
+.voting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-        for (var j = 0; j < 10; j++) {
-            var cell = document.createElement("td");
-            cell.textContent = num;
-            row.appendChild(cell);
-            num++;
-        }
+.smiley-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 
-        tableBody.appendChild(row);
-    }
-});
-</script>
+.smiley {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.count-row {
+  display: flex;
+  justify-content: center;
+}
+
+.count {
+  font-size: 18px;
+  margin: 0 10px;
+}
+  </style>
+  <script>
+    const counts = [0, 0, 0, 0, 0];
+
+function updateCounts() {
+  const countElements = document.querySelectorAll('.count');
+  countElements.forEach((element, index) => {
+    element.textContent = counts[index];
+  });
+}
+
+function vote(index) {
+  counts[index]++;
+  updateCounts();
+}
+
+updateCounts();
+  </script>
 </body>
 </html>
